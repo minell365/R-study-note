@@ -1,1 +1,23 @@
-R programming lecture 
+R programming lecture 2021-3 ~
+
+##6-1 두 그룹간 평균비교분석 (t-test)
+단일표본의 평균검정
+가설1 : 변수의 평균은 10인가? (one sample t-test)
+t.test(변수, mu=검정하고자 하는 평균값)
+
+가설2 : ~(a, b)에 따른 평균에 차이가 있는가? (양측검정, two sample t-test) 
+      타겟변수(y축 값), 범주형 변수(x축 값, 위에서 a, b)
+t.test(타겟변수~범주형변수, data= )
+boxplot(타겟변수~범주형변수, boxwex = 0.5, col = c("yellow", "coral"))
+
+단측검정: 기각역이 한쪽에만 있는 경우
+      alternative=c("greater") 또는 alternative=c("less")
+t.test(타겟변수~범주형변수, data=  , alternative=c("less"))
+
+두 집단의 비모수적 비교검정 : wilcox.test(x, y) 타겟변수가 서열척도(통증, 만족도 등)일때 사용
+wilcox.test(타겟변수~범주형변수)
+
+
+
+
+
