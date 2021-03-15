@@ -36,6 +36,40 @@ plot(TurkeyHSD())
 
 ##7-1 상관분석
 
+cor(변수1, 변수2)
+
+pearson의 상관계수 : cor(옵션없는 경우)
+kendall, spearman의 상관계수 : cor(변수1, 변수2, method=c("spearman"))
+
+예) pairs(car1[변수], cex=1, col=as.integer(car1$cyl), pch=19)
+                              색을 특정 변수에 넣는 것
+상관계수 r 은 0-1 사이의 값. 1에 가까울 수록 강한 상관성
+
+통계치와 그래프 - monkey 데이터 + king kong 한마리 (데이터가 하나 잘 못 들어간 것이 존재할 때)
+->상관관계에 대한 해석을 완전히 바꿘 놓을 수 있음
+
+
+##7-2 선형회귀모형
+단순회귀모형 : lm(y변수(=종속변수)~x변수(=독립변수), data= )    linear model -> lm
+plot(x축변소, y축변수)
+abline : ad line(선을 추가하는 함수)
+예) plot(변수, 변수, col=as.integer(car$cyl), pch=19)
+    abline(lm(변수~변수), col="red", lwd=2, lty=1)    #best fit linear line
+
+최소자승법 : 예측값과 관측치간의 오차를 최소화 시키는 회귀계수를 추정
+회귀식에 의해 설명되는 부분(SSR)과 설명되지 않는 부분(SSE)
+
+
+##7-3 회귀모형 진단과 평가  -> 컴에서 들어야 함
+
+
+
+##8-1 다중회귀분석
+
+
+
+
+
 
 
 
