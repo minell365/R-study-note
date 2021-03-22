@@ -89,7 +89,7 @@ vif(다중회귀모형)
 예)vif(lm(mpg ~ disp+hp+wt+accler, data=car)
 
 
-##8-2 다중회귀분석
+##8-2 데이터마이 분류
 
 
 
