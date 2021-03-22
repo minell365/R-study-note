@@ -65,11 +65,31 @@ abline : ad line(선을 추가하는 함수)
 
 
 ##8-1 다중회귀분석
+데이터 마이닝, 기계학습 표!
+타겟변수 값이 주어지는 경우(변수간의 관계) -> 예측, 분류
+타겟변수 값이 없는 경우(개체간의 관계) -> 군집, 연관규칙
+
+예측(prediction) -> 회귀분석, 선형모형, 비선형모형
+분류(classification) -> 의사결정나무, 서포트벡터머신, 판별분석, 로지스틱회귀모형
+
+autompg 데이터 활용한 연습 -> mpg(연비)를 종속변수(y)값으로, 나머지를 독립변수(x)
+
+lm(y변수~x1+x2+x3, data= )
+
+예) r1 <- lm(mpg ~ disp+hp+wt+accler, data=car)
+
+단계별 방법(stepwise method)
+step(모형, directions="both")
+
+다중공선성 -> 독립변수들 사이에 상관관계가 너무 높아서 회귀계수 해석 불가능
+
+분산팽창계수(VIF) -> 다중공선서의 척도
+vif(다중회귀모형)
+
+예)vif(lm(mpg ~ disp+hp+wt+accler, data=car)
 
 
-
-
-
+##8-2 다중회귀분석
 
 
 
