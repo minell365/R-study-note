@@ -100,7 +100,7 @@ vif(다중회귀모형)
 
 iris <- read.csv(file="iris.csv")   #150개 데이터
 set.seed(100)  #set.seed는 난수 생성 시 처음 시작값을 주어 둥일한 훈련포본 사용, 지정하지 않으면 매번 다른 훈련표본 생성
-               #train/test를 2:!로 랜덤 분할(100/50, n=150)
+               #train/test를 2:1로 랜덤 분할(100/50, n=150)
 N=nrow(iris)
 tr.idx=sample(1:N, size=N*2/3, replace=FALSE)    #tr.idx는 100개의 무작위로 선정된 100개의 데이터 아이디
 tr.idx
