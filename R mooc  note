@@ -91,6 +91,38 @@ vif(다중회귀모형)
 
 ##8-2 데이터마이닝과 분류
 
+분류(classification)
+오분류율 = 오분류 객체수/전체 객체수
+교차검증(cross-validation) : n=100 이면 5등분으로 나누어 4등분은 학습데이터로 예측모형을 구성하고, 나머지 5등분 째 데이터로 검증
+
+
+##8-3 학습데이터와 검증데이터
+
+iris <- read.csv(file="iris.csv")   #150개 데이터
+set.seed(100)  #set.seed는 난수 생성 시 처음 시작값을 주어 둥일한 훈련포본 사용, 지정하지 않으면 매번 다른 훈련표본 생성
+               #train/test를 2:!로 랜덤 분할(100/50, n=150)
+N=nrow(iris)
+tr.idx=sample(1:N, size=N*2/3, replace=FALSE)    #tr.idx는 100개의 무작위로 선정된 100개의 데이터 아이디
+tr.idx
+
+iris.train <- iris[tr.idx, -5]   #5번째 열의 종속변수를 제외한 100개의 데이터
+iris.test <- iris[-tr.idx, -5]   #5번째 열의 종속변수를 제외한 50개의 데이터
+
+trainLables <- iris[tr.idx, 5]
+testLables <- iris[-tr.idx, 5]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
