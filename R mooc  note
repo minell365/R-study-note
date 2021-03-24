@@ -113,14 +113,76 @@ testLables <- iris[-tr.idx, 5]
 
 
 
+##9-1 k-인접기법 
 
+최적 k : 교차검증으로 정확도가 높은 k를 선정
+장점 : 계산이 단순하고 효율적
+단점 : 범주형변수에 대해서는 거리를 계산할 수 없음
 
+kNN을 수행하기 위한 추가 패키지 설치 - class, caret, scales
+class : kNN 수행을 위한 패키지
+caret : Confusion matrix를 생성하기 위한 패키지
+scales : 최적 k 등 그래프를 위한 패키지
 
+iris 데이터 활용
+iris <- read.csv(file="iris.csv", stringsAsFactors = TRUE)
+set.seed(1000)
+n <- nrow(iris)
+tr.idx <- sample.int(n, size = round(2/3*n))
 
+iris.train <- iris[tr.idx, -5]   #독립변수 4개를 포함한 100개의 데이터
+iris.test <- iris[-tr.idx, -5]   #독립변수 4개를 포함한 50개의 데이터
 
+trainLables <- iris[tr.idx, 5]    #학습데이터의 타겟변수
+testLables <- iris[-tr.idx, 5]    #검증데이터의 타겟변수
 
+kNN함수 : kNN(train=학습데이터, test=검증데이터, cl=타겟변수, k= )
+예) md1 <- knn(train=iris.train, test=iris.test, cl=trainLabels, k=5)
+    md1   #test데이터(50개)들을 예측한 결과가 저장되어 있음
 
+confusionMatrix(md1, testLabels)  #md1=예측값, testLabels=타겟변수의 실제값
 
+md1, testLabel의 유형이 char(문자), factor(범주) 다를때는 오류가 생김, 그래서 처음에 불러올때 stringsAsFactor 해줌
+
+최적 k의 탐색 : 1 to nrow(train_data)/2 (여기서는 1 to 50까지)
+accuracy_k <- Null
+nnum <- nrow(iris.train)/2
+for(kk in c(1:nnum))
+{
+      set.seed(1234)
+      knn_k <- knn(train=iris.train, test=iris.test, cl+trainLabels, k=kk)
+      accuracy_k <- c(accuracy_k, sum(knn_k==testLabels)/length(testLabels))
+}      
+
+test_k <- data.frame(k=c(1:nnum), accuracy=accuracy_k[c(1:nnum)])
+plot(formula=accuracy~k, data=test_k, type="o", ylim=c(0.5, 1), pch=20, col=3, main="validation-optimal k")
+with(test_k, test(accuracy~k, labels=k, pos=1, cex=0.7)
+
+min(test_k[test_k$accuracy %in% max(accuracy_k), "k"])
+
+k=7에서 정확도(.98)가 가장 높음
+
+최종 kNN모형(k=7)
+md2 <- knn(train=iris.train, test=iris.test, cl=trainLabels, k=7)
+confusionMatrix(md2, testLabels)
+
+kNN모형(k=7) 결과 - 그래프
+plot(formula = Petal.Lenth ~ Petal.width,
+      data=iris.train, 
+      col=alpha(c("purple", "blue", "green"), 0.7)[trainLabels],
+      main="knn(k=7)")
+point(formula = Petal.Lenth ~ Petal.width,
+      data=iris.test,
+      pch=17,
+      cex=1.2,
+      col=alpha(c("purple", "blue", "green"), 0.7)[md2])
+legend("bottonright",
+      c(paste("train", levels(trainLables)), paste("test, levels(testLabels))),
+      pch=c(rep(1,3), rep(17,3)),
+      col=(c(rep(alpha(c("purple", "blue", "green"), 0.7),2)),
+      cex=0.9)
+      
+      
 
 
 
