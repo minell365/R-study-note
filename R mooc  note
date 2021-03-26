@@ -183,7 +183,7 @@ legend("bottonright",
       cex=0.9)
       
 
-##9-2 판별분석  (이론 내용이 어렵다!!)
+##9-2 판별분석1  (이론 내용이 어렵다!!)
 
 -객체를 몇 개의 범주로 분류
 -범주들을 가장 잘 구분하는 변수 파악 및 범주간 차이를 가장 잘 표현하느 함수 도출
@@ -216,6 +216,26 @@ testpred <- predict(iris.lda, test)
 confusionMatrix(testpred$class, testLabels)
 
 
+##9-2 판별분석2
+
+선형판별분석 vs. 이차판별분석
+
+이차판별분석(QDA) : 모집단 등분산 검정 -> 분산-공분산 행렬이 범주별로 다른 경우, 이차판별분석을 실시
+=> Box's M-test
+
+등분산검정을 위한 패키지 : biotools
+
+library(biotools)
+boxM(iris[1:4], iris$Species)
+
+QDA 함수 : qda(종속변수 ~ 독립변수, data=학습데이터 이름, prior=사전확률)
+
+iris.qda <- qda(Species ~ ., data=train, prior=c(1/3, 1/3, 1/3))
+iris.qda
+
+testpredq <- predict(iris.qda, test)
+
+confusionMatrix(testpredq$class, testLabels)
 
 
 
