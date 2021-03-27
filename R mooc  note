@@ -239,6 +239,17 @@ confusionMatrix(testpredq$class, testLabels)
 
 
 
+##9-3 판별분석2 
+
+LDA : 두 범주를 분류하는 선형판별함수, 범주간 동일한 분산-공분산행렬을 가정
+QDA : 판별함수가 변수들에 대한 이차함수로 표현, 공분산 행렬이 범주별로 다른 경우
+
+이차판별분석(QDA) 
+등분산검정을 위한 패키지 : biotools
+
+library(biotools)
+boxM(iris[1:4], iris$Species)
+
 
 
 
