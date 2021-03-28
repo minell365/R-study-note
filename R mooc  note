@@ -216,30 +216,13 @@ testpred <- predict(iris.lda, test)
 confusionMatrix(testpred$class, testLabels)
 
 
-##9-2 판별분석2
+##9-3 판별분석2 
 
 선형판별분석 vs. 이차판별분석
 
 이차판별분석(QDA) : 모집단 등분산 검정 -> 분산-공분산 행렬이 범주별로 다른 경우, 이차판별분석을 실시
 => Box's M-test
 
-등분산검정을 위한 패키지 : biotools
-
-library(biotools)
-boxM(iris[1:4], iris$Species)
-
-QDA 함수 : qda(종속변수 ~ 독립변수, data=학습데이터 이름, prior=사전확률)
-
-iris.qda <- qda(Species ~ ., data=train, prior=c(1/3, 1/3, 1/3))
-iris.qda
-
-testpredq <- predict(iris.qda, test)
-
-confusionMatrix(testpredq$class, testLabels)
-
-
-
-##9-3 판별분석2 
 
 LDA : 두 범주를 분류하는 선형판별함수, 범주간 동일한 분산-공분산행렬을 가정
 QDA : 판별함수가 변수들에 대한 이차함수로 표현, 공분산 행렬이 범주별로 다른 경우
@@ -249,6 +232,56 @@ QDA : 판별함수가 변수들에 대한 이차함수로 표현, 공분산 행�
 
 library(biotools)
 boxM(iris[1:4], iris$Species)
+
+QDA함수 : qda(종속변수 ~ 독립변수, data=학습데이터 이름, prior=사전확률)
+
+iris.qda <- qda(Species ~ ., data=train, prior=c(1/3, 1/3, 1/3))
+iris.qda
+
+testpredq <- predict(iris.qda, test)
+
+confusionMatrix(testpredq$class, testLabels)
+
+
+##10-1 서포트벡터머신
+
+분류모델 중 하나
+장점 : 정확도가 상대적으로 좋음, 다양한 데이터(연속형, 범주형) 사용가능
+단점 : 해석하기 어려움, 데이터가 많을 때 속도가 걸림
+
+선형 SVM : H와 평행인 두 하이퍼플레인
+H1과 H2간의 거리를 최대로 하는 분리 하이퍼플레인을 찾자!
+
+비선형 SVM : 대부분의 패턴은 선형적으로 분리 불가능
+비선형 패턴의 입력공간을 선형패턴의 'feature space'로 변환
+kernel method로 비선형 경계면 도출
+
+library(e1071)   : e1071은 svm 함수 사용을 위한 패키지
+library(caret)   : caret은 confusionMatrix 사용을 위한 패키지
+
+데이터 불러오기, stringsAsFactor=TRUE
+
+svm(y변수 ~ x변수, data= )
+
+m1 <- svm(Species ~., data=iris)
+summary(m1)
+
+svm모델에 적용한 예측범주와 실제범주 비교(전체 데이터를 사용한 결과)
+
+x <- iris[, -5]
+pred <- predict(m1, x)
+
+y <- iris[, -1]
+confusionMatrix(pred, y)
+
+시각화
+plot(ma, iris, Petal.Width~Petal.Length, slice=list(Sepal.Width=3, 
+
+Petal.Width~Petal.Length가 가장 중요한 변수라는 것을 이미 알고 있는 상황)
+ 
+
+
+
 
 
 
