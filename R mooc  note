@@ -280,9 +280,31 @@ plot(ma, iris, Petal.Width~Petal.Length, slice=list(Sepal.Width=3,
 Petal.Width~Petal.Length가 가장 중요한 변수라는 것을 이미 알고 있는 상황)
  
 
+##10-2 서포트벡터머신2
 
+kernel 함수 
 
+커널(kernel)이란 : 저차원을 고차원으로 변환시켜 주는 함수, 변환을 통해 X에 대한 새로운 특징을 추출할 수 있도록 함
 
+set.seed(1000)
+N=norw(iris)
+tr.idx=sample(1:N, size=n=*2/3)
+
+iris.train <- iris[tr.idx,]
+iris.train <- iris[-tr.idx,]
+
+m1 <- svm(Speciex~., data=train)
+summary(m1)
+
+m2 <- svm(Speciex~., data=train.kernel="Polynomianl")
+summary(m2)
+
+m3 <- svm(Speciex~., data=train.kernel="sigmoid")
+summary(m3)
+
+각 kernel 함수에 따른 결과 비교 
+pred11 <- predict(m1, test)   #m1 자리에 m2, m3 차례로 입력하여 결과값 확인
+confusionMatrix(pred11, test$Species)
 
 
 
