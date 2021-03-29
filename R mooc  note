@@ -293,19 +293,22 @@ tr.idx=sample(1:N, size=n=*2/3)
 iris.train <- iris[tr.idx,]
 iris.train <- iris[-tr.idx,]
 
-m1 <- svm(Speciex~., data=train)
+m1 <- svm(Species~., data=train)
 summary(m1)
 
-m2 <- svm(Speciex~., data=train.kernel="Polynomianl")
+m2 <- svm(Species~., data=train.kernel="Polynomianl")
 summary(m2)
 
-m3 <- svm(Speciex~., data=train.kernel="sigmoid")
+m3 <- svm(Species~., data=train.kernel="sigmoid")
 summary(m3)
 
-각 kernel 함수에 따른 결과 비교 
+각 kernel 함수에 따른 결과 비교, 각 함수마다 오분류 되는 것이 다름
 pred11 <- predict(m1, test)   #m1 자리에 m2, m3 차례로 입력하여 결과값 확인
 confusionMatrix(pred11, test$Species)
 
+
+m4 <- svm(formula = Species~., data=train.kernel="liner")
+summary(m4)
 
 
 
