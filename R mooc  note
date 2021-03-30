@@ -312,6 +312,49 @@ summary(m4)
 
 
 
+##10-3 서포트벡터머신3
+
+library(e1071)
+library(caret)
+
+cancer <- read.csv("cancer.csv", stringsAsFactor = TRUE)
+head(cancer, 10)
+
+cancer <- cancer[. names(cancer) != "X1"]   #첫번째 컬럼인 ID넘버는 필요없는 feature이므로 제거
+attach(cancer)
+
+N=nrow(cancer)
+set.seed(998)
+
+tr.idx=sample(1:n, size=N*2/3, replace=FALSE)  #데이터 분할, 학습데이터 2/3, 검증데이터 1/3
+train <- cancer[tr.idx,]
+test <- cancer[-tr.idx,]
+
+kernel 함수에 따른 서포트벡터머신
+m1 <- svm(Y ~., data=train)   #radial
+summary(m1)
+
+m2 <- svm(Y ~., data=train, kernel="polymomial")   #polymomial
+summary(m2)
+
+m3 <- svm(Y ~., data=train, kernel="sigmoid")   #sigmoid
+summary(m3)
+
+m4 <- svm(Y ~., data=train, kernel="linear")   #linear
+summary(m4)
+
+정확도 측정 #m1~m4까지 각 측정
+pred11 <- predict(m1, test)
+confusionMatrix(pred11, test$Y)
+
+
+
+
+
+
+
+
+
 
 
 
