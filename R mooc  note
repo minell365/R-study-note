@@ -348,6 +348,56 @@ pred11 <- predict(m1, test)
 confusionMatrix(pred11, test$Y)
 
 
+##11-1 의사결정나무1
+
+의사결정나무 : 의사결정 규칙을 나무형태로 분류해 나가는 분석 기법, 기계학습 중 하나
+               분석과정이 직관적이고 이해하기 쉬움, 연속형/범주형 변수 모두 사용할 수 있음, 분지 규칙은 불순도를 최소화 시킴
+             
+tree형성(Growing tree)
+tree가지치기(Pruning tree)
+최적 tree로 분류(Classification)
+
+의사결정나무 실행 피키지 : tree(그외 rpart, party 패키지)
+library(tree)
+library(caret)
+
+iris <- read.csv("iris.csv", stringsAsFactors = TRUE)
+set.seed(1000)
+N <- nrow(iris)
+tr.idx <- sample91:n, size=N*2/3, replace=FALSE)
+
+train <- iris[tr.idx,]
+test <- iris[-tr.idx,]
+
+treemod <- tree(Species ~., data=train)
+treemod
+plot(treemod)   #의사결정나무 분지를 그림으로 표현
+text(treemod, cex=1.5)   #cex : 폰트사이즈
+
+tree의 결과(*는 터미널노드) : 마디 6에서는 더 이상 분지할 필요 없음
+
+최적 tree모형을 위한 가지치기(pruning) : cv.tree(tree모형결과, FUN=)
+결과에서 교차검증오차(deviance)의 값이 최소가 되는 노드 수 선택
+
+cv.trees <- cv.tree(treemod, FUN=prune.misclass)
+cv.trees
+plot(cv.trees)
+
+par(mfrow=c(1,2))
+plot(cv.trees$size, cv.trees$dev, type="b")
+plot(cv.trees$k, cv.trees$dev, type="b")
+
+pruning(가지치기) : cv.tree함수를 이용하여 최적 터미널노드를 탐색
+
+prune.trees <- prune.misclass(treemod, bext=3)  #prune.trees는 최종모형의 이름(최종터미널노드=3)
+plot(prune.trees)
+text(prune.trees, pretty=0, cex=1.5)
+
+의사결정나무결과 정확도 : test data에 대한 정확도
+treepred <- predict(prune.trees, test, type='class')
+confusionMatrix(treepred, test$Species)
+
+
 
 
 
