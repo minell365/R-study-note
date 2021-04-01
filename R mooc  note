@@ -412,7 +412,7 @@ cl1 <- rpart(Species ~., data=train)
 plot(cl1)
 text(cl1, cex=1)
 
-rpart패기지에서의 최적 트리모델(cp(compexity parameter)비교)
+rpart패지에서의 최적 트리모델(cp(compexity parameter)비교)
 printcp에서 xerror(cross validation error)의 값이 최소가 되는 트리를 선택
 printcp(cl1)
 plotcp(cl1)
@@ -426,7 +426,7 @@ pred2 <- predict(pcl1, test, type='class')
 confusionMatrix(pred2, test$Species)
 
 의사결정나무 실행 피키지 : party 패키지
-ctree(종속변소 ~ x1+x2+x3+x4, data= )
+ctree(종속변수 ~ x1+x2+x3+x4, data= )
 partymod <- ctree(Species ~., data=train)
 plot(partymod)
 partymod
