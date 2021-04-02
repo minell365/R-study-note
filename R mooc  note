@@ -435,6 +435,49 @@ partypred <- predict(partymod, test)
 confusionMatrix(partypred, test$Species)
 
 
+##11-3 랜덤포레스트
+
+랜덤포레스트(random forest) : 의사결정나무의 단점(과적합)을 개선한 알고리즘
+                              주어진 데이터의 리샘플링을 통해 생성한 다수의 의사결정나무 모델을 결합하여 정확도를 높이는 방법인 ensemble 기법
+                             
+training data로부터 표본의 크기가 n인 bootstrap sample을 추출 -> tree모형 구성(tree1, treee2, ..., treek) -> 각 모델 tree들의 앙상블 결과로 분류
+
+bagging(bootstrap aggregating) : 전체 데이터에서 샘플을 여러 번 추츨(bootstraㅔ)하고 각 모델을 aggregation하여 최종모델을 도출하는 방법
+                              training data 에서 random sampling
+                              
+랜덤포레스트 패키지 : randomForest
+
+library(randomForest)
+metry : 독립변수의 수(numver of variables randomly sampled, default = sqrt(k)
+ntree : tree의 수 (number of decision trees to be grown)
+sampsize : 샘플사이즈 (sample size to be drawn from the input data for growing decision tree)
+importance : 변수중요도
+
+iris <- read.csv("iris.csv")
+attach(iris)
+
+set.seed(1000)
+N <- nrow(iris)
+tr.idx <- sample(1:N, size=N*2/3, replace=FALXE)
+train <- iris[tr.idx,]
+test <- iris[-tr.idx,]
+
+randomForest(종속변수 ~ x1+x2+x3+x4, data= )
+rf_out1 <- randomForest(Species ~ ., data=train, impoortance=T)
+rf_out1
+
+rf_out2 <- randomForest(Species ~ ., data=train, impoortance=T, mtry=4)
+rf_out2
+
+변수의 중요도 : random forest결과로부터 중요변수 확인
+round(importance(rf_out2), 2)
+randomForest::importance(rf_out2)
+varImpPlot(rf_out2)
+
+랜덤포레스트 결과 정확도 : test data에 대한 정확도
+rfpred <- predict(rf_out2, test)
+confusionMatrix(rfpred, test$Species)
+
 
 
 
