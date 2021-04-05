@@ -536,9 +536,42 @@ cor(m2[1,], m2[3,])
 
 
 
+##12-2 계층적 군집분석
 
+사전에 군집 수 k를 정하지 않고 단계적으로 군집을 형성
+단일연결법, 완전연결법, 평균연결법, 중심연결법
 
+단일연결법 : 군집 i와 군집 j의 유사성 척도로 두 군집의 모든 객체 쌍의 거리 중 가장 가까운 거리를 사용
+완전연결법 : 두 군집의 객체 쌍의 거리 중 가장 먼 거리를 사용
+평균연결법 : 두 군집의 모든 객체 쌍의 평균 거리를 사용
+중심연결법 : 두 군집의 중심좌표
 
+단일연결법 군집화 과정 : 유클리디안 거리 사용
+덴드로그램 : 군집 그룹과 유사성 수준을 표시하는 트리 다이어그램
+
+wages1833.csv 데이터를 가지고 분석
+
+wages1833 <- read.csv(file="wages1833.csv", stringsAsFactors = TRUE)
+head(wages1833, n=10)
+
+dat1 <- wages1833[, -1]   #ID변수 제외
+dat1 <- na.omit(dat1)   #결측치 데이터 삭제
+str(dat1)
+
+dist_data <- dist(dat1)
+
+완전연결법
+hc_a <- hclust(dist_data, method = "complete")   #method: single(단일), complete(완전), average(평균), centroid(중심)
+plot(hc_a, hang = -1, cex=0.7, main = "complete")
+
+평균연결법
+hc_c <- hclist(dist_Data, method = "average")
+plot(hc_c, hang=-1, cex=0.7, main = "average")
+           #hang: 라벨을 일정한 위치에 고정
+
+워드 연결방법(Ward's method)
+hc_c <- hclust(dist_data, method = "ward.D2")
+plot(hc_c, hang=-1, cex=0.7, main = "Ward's method")
 
 
 
