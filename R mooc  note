@@ -575,6 +575,66 @@ plot(hc_c, hang=-1, cex=0.7, main = "Ward's method")
 
 
 
+##12-3 비계층적 군집분석
+
+사전에 군집 수 k를 정한 후 객체를 k개 중 하나의 군집에 배정
+k-means알고리즘, k-medoids알고리즘(PAM, CLARA), DBSCAN알고리즘(밀도기반)
+
+k-means 군집분석 : 가장 널리 사용. 중심좌표를 고려하여 각 가체를 가장 가까운 군집에 배정을 반복
+초기객체선정 -> 객체군집배정 -> 군집중심좌표 산출 -> 수렵조건 점검
+
+wages1833 <- read.csv(file="wages1833.csv", stringsAsFactors = TRUE)
+head(wages1833)
+
+dat1 <- wages1833[, -1]   #ID변수 제외
+dat1 <- na.omit(dat1)   #결측치 데이터 삭제
+head(dat1, n=5)
+
+library(factoextra)
+library(ggplot2)
+
+#최적값은 "silhouette", "gap_stat", "wss(그룹내제곱합)"으로 산출
+fivz_nbclust(dat1, kmeans, method = "wss")
+fivz_nbclust(dat1, kmeans, method = "gap_stat")
+#그래프라 완만해지는 지점을 k의 값으로 추정
+
+#k-means (k=3)
+set.seed(123)
+km <- kmeans(dat1, 3, nstart = 25)  #random set의 수 (nstart)
+km
+
+#kmeans 결과 시각화, convex모양으로 구역 표시, repel을 통해 관측치 표기
+fivz_cluster(km, data = dat1,
+            ellipse.type = "convex",
+            repel = TRUE)   
+         
+k-medoids 군집분석 : 중앙값을 각 군집의 대표 객체로 사용, 객체와 속하는 군집의 대표 객체와의 거리 총합을 최소로 하는 방법
+PAM 알고리즘 : 모든 객체에 대하여 대표 객체가 변했을 때 발생하는 거리 총합의 변화를 계산
+CLARA 알고리즘 : 적절한 수의 객체를 샘플링 한 후, PAM 알고리즘을 적용하여 대표 객체 선정
+
+PAM 알고리즘
+k=3
+
+library("cluster")
+pam_out <- pam(dat1, 3)
+pam_out
+
+table(pam_out$clustering)
+fivz_cluster(pam_out, data = dat1,
+            ellipse.type = "convex",
+            repel = TRUE)   
+
+DBSCAN 알고리즘 : 특정 공간 내에 데이터의 밀도 차이를 기반으로 군집화, 자동으로 군집수를 찾음, 기하학적 분포도를 가진 데이터 군집화 수행
+
+library(fpc)
+db <- dbscan(dat1, eps=70, Minpts=3)   #Min poubts : 군집을 이루기 위한 최소 원소 개수, Eps: 군지을 이루기 위한 최소 반경
+db
+db$cluster
+fivz_cluster(db, data = dat1,
+            ellipse.type = "convex",
+            repel = TRUE)   
+
+실루엣계수 : 군집의 성능평가척도
 
 
 
