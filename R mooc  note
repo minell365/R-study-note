@@ -635,6 +635,12 @@ fivz_cluster(db, data = dat1,
             repel = TRUE)   
 
 실루엣계수 : 군집의 성능평가척도
+library(cluster)
+sil_pam <- silhouette(pan_out$clustering, dist(Dat1))
+mean(sil_pam)
+sil_dv <- silhouette(db$cluster, dist(dat1))
+mean(sil_db)
+
 
 
 
