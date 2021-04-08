@@ -682,6 +682,8 @@ summary(dvd_rule)
 inspect(dvd_rule)
 
 
+itemFrequencyPlot(dvd.trans, support = 0.2, main = " item for support>=0.2", col="green")
+
 
 
 
