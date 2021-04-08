@@ -642,7 +642,44 @@ sil_dv <- silhouette(db$cluster, dist(dat1))
 mean(sil_db)
 
 
+##13-1 연관규칙
 
+연관규칙(association rule) : 대용량 거래(트랜잭션) 데이터베이스에서 빈번하게 발생하는 패턴을 발견
+                              거래 간의 상호 관련성을 분석
+시장바구니
+트랜잭션 : 고객이 거래한 정보를 하나의 거래
+시장바구니 분석
+
+지지도, 신뢰도, 향상도
+
+향상도 : A가 거래된 경우, 그 거래가 B를 포함하는 경우와 B가 임의로 거래되는 경우의 비율
+
+library(arules) : 연관규칙분석 수행을 위한 라이브러리
+
+연습데이터 : dvdtrans.csv
+split를 통해 id별로 item들을 as함수를 통해 transaction data로 변환
+
+dvd1 <- read.csv("dvdtrans.csv")
+dvd1
+
+dvd.list <- split(dvd1$Item, dvd1$ID)
+dvd.list
+
+dvd.trans <- as(dvd.list, "transactions")
+dvd.trans
+
+inspect(dvd.trans)
+
+연관규칙 함수 : apriori(transaction, parameter=list(support=##, confidence=##)
+
+dvd_rule <- apriori(dvd.trans,
+                    parameter = list(support=0.2, 
+                                    confidence = 0.2,
+                                     minlen = 2))
+dvd_rule
+
+summary(dvd_rule)
+inspect(dvd_rule)
 
 
 
