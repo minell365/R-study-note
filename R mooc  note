@@ -731,9 +731,20 @@ write(Grocery_rule, file="Grocery_rule.csv",
       
 
 
+##13-3 로지스틱 회귀모형 (이론 내용 -> 다시 듣고 해석 방법 정리)
 
+종속변수가 범주형인 경우
+회귀계수 의미가 선형회귀 모형과 다름
 
+t1 <- glm(remiss ~ cell+smear+infil+li+blat+temp, data=re, family=biomial(logit))
+summary(t1)
+cor(re)
 
+t2 <- glm(remiss ~ cell+smear+li+temp, data=re, family=biomial(logit))
+summary(t2)
+
+t3 <- glm(remiss ~ cell+li+temp, data=re, family=biomial(logit))
+summary(t3)
 
 
 
