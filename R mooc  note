@@ -642,7 +642,7 @@ sil_dv <- silhouette(db$cluster, dist(dat1))
 mean(sil_db)
 
 
-##13-1 연관규칙
+##13-1 연관규칙1
 
 연관규칙(association rule) : 대용량 거래(트랜잭션) 데이터베이스에서 빈번하게 발생하는 패턴을 발견
                               거래 간의 상호 관련성을 분석
@@ -683,6 +683,58 @@ inspect(dvd_rule)
 
 
 itemFrequencyPlot(dvd.trans, support = 0.2, main = " item for support>=0.2", col="green")
+
+
+##13-2 연관규칙2
+
+Groceries data(arules 패키지에 탑재되어 잇는 데이터)
+
+library(arules)
+data("Groceries")
+summary(Groceries)
+
+itemFrequencyPlot(Groceries, support=0.05, main = "items for support>=5%", col="green")
+itemFrequencyPlot(Groceries, topN=20, main = "support top 20 items", col="coral")
+
+#연관규칙 분석, support, confidence와 length는 minimum값으로 너무 높게 잡으면 연관규칙 도출이 어려움
+Grocery_rule <- apriori(data=Groceries, 
+                        parameter = list(support=0.05,
+                                          confidence = 0.02,
+                                          minlen = 2)
+Grocery_rule
+
+summary(Grocery_rule)
+inspect(Grocery_rule)
+
+#연관규칙-향상도(lift)순서로 정렬
+inspect(sort(Grocery_rule, by="lift")
+
+sort() 함수를 통해 분석가가 보고자 하는 기준으로 정렬
+subset() 함수를 통해 원하는 item이 포함된 연관규칙만 추출
+%in%, %pin% 을 이용해 다양한 조건의 규칙 도출
+
+rule_interest3 <- subset(Grocery_rule, items %in% c("yogurt"))
+inspect(rule_interest3)
+
+rule_interest5 <- subset(Grocery_rule, items %in% c("other") & confidence>0.25)
+inspect(rule_interest5)
+
+#연관규칙 결과를 데이터 프레임으로 저장
+Grocery_rule_df <- as(Grocery_rule, "data.frame")
+Grocery_rule_df
+
+#연관규칙결과 저장
+write(Grocery_rule, file="Grocery_rule.csv", 
+      set= ",",
+      quote=TRUE,
+      row.names=FALSE)
+      
+
+
+
+
+
+
 
 
 
