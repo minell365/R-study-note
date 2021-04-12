@@ -1,4 +1,4 @@
-# R-study-note
+# R-Mooc_study-note
 
 #R 강의 듣고 내용 정리한 노트 입니다.
 #강의는 K-mooc, 유투브 등 다양한 강의를 들을 예정입니다
