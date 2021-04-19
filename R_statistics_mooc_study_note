@@ -178,8 +178,16 @@ Robustness 이슈 : 구글독감예측 사례
 Reverse-engineering : 투명성 부족을 해결하기 위한 방안 예)자동차보험에서 성별차별
 
 
+##7-4 사례연구 : 타이타닉 (캐글)
 
+1. 데이터 전처리
+2. 의사결정나무 적합
+3. Confusion Matrix와 ROC 곡선을 이용한 결과 평가
+4. 분석에 사용된 코드
+   https://www.kaggle.com/thilakshasilva/predicting-titanic-survival-using-five-algorithms
 
+5. 수업에 사용된 코드 
+   https://github.com/wcjang/K-MOOC/blob/main/Lab07/Lab07.Rmd
 
 
 
