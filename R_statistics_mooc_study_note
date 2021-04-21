@@ -252,9 +252,32 @@ Reverse-engineering : 투명성 부족을 해결하기 위한 방안 예)자동�
 
 ##8-4 사례연습 : 붓스트랩과 다양한 확률분포
 
+R을 이용하여 다양한 확률분포의 모양 파악, 확률변수 생성 가능
+mean평균, sd표준편차
+확률밀도함수 : dnorm(x, mean, sd)
+누적밀도함수 : pnorm(q, mean, sd)
+누적밀도함수의 역함수 : qnorm(p, mean, sd)
+rnorm ??
 
-              
+예) 수능 점수 1등급(96%) 컷 점수는?
+qnrom(0.96, means=50, sd=10)
 
+내 표준점수가 64점이라면?
+pnorm(64, means=50, sd=10)
+
+
+포아송 분포
+확률밀도함수 : dpois(x, lambda)
+누적밀도함수 : ppois(q, lambda)
+n개의 정규분포를 따르는 확률변수 생성 : rpois(n, lambda) 
+누적밀도함수의 역함수 : qpois(p, lambda)
+
+예) 커플 1.3회 키스, 한시간 2회 이상 할 경우 
+1-ppois(1, lambda=1.3)
+
+평균 1.3인 포아송 분포의 확률밀도함수
+x <- c(0:10)
+plot(x, dpois(x, lambda=1.3), type="h")
 
 
 
