@@ -347,6 +347,57 @@ PPDAC 에서 analysis
 -> 대립가설이 참이거나(귀무가설 기각) 또는 대립가설이 참이라고 할 만한 충분한 증거가 없다(귀무가설을 기각할 수 없다)는 것이 결론
 
 
+##9-4 사례연구 
+
+이항분포
+
+확률밀도함수 : dbinom(x, n, prob)
+누적밀도함수 : pbinom(q, n, prob)
+
+n개의 이항분포를 따르는 확률변수 생성 : rbinom(n, prob)
+
+누적밀도함수의 역함수 : qbinom(p, n, prob)
+
+예) 동전을 10번 던졌을때 앞면이 5번 나올 확률 : dbinom(5, 10, 0.5)
+    동전을 100번 던졌을때 앞면이 50번 나올 확률 : dbinom(50, 100, 0.5)
+예) 동전을 10번 던졌을 때 앞면이 4번 이하로 나올 확률 :  pbinom(4, 10, 0.5)
+
+룰렛게임
+s = 강원래드의 수입, 1000명에 대해서 나오는 수입의 분포를 총 B=10000번 시뮬레이션을 통해 알아보자
+
+n <- 1000
+b <- 10000
+roulette_winnings <- funcion(n){
+            x <- sample(c(-1, 1), n, replace = TURE, prob=c(9/19, 10/19))
+            sum(X)
+            }
+S <- replicate(B, roulette_winnings(n))
+
+강원랜드가 돈을 잃을 확률 : 만번중에 음수일 확률
+mean(S<0)
+
+이항분포의 정규분포 근사
+hist(S, freq=FALSE)
+x <- -60, 200, by=1)
+lines(x, dnorm(x, mean=mean(S), sd=sd(S)), col="red")
+
+
+신뢰구간
+N <- 1000
+B <- 10000
+p <- 0.43
+inside <- replicate(B, {
+            x <- sample(c(0,1), size = N, replace =TRUE, prob = c(-1p, p))
+            x_hat <- mean(X)
+            se_hat <- sqrt(x_hat * (1-x_hat)/ N)
+            between(p, x_hat - 1.96 * se_hat, x_hat + 1.96 * se_hat)    #신뢰구간 추정치 공식
+})
+mean(inside)
+
+
+
+
+
 
 
 
