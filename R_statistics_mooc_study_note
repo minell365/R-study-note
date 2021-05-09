@@ -420,18 +420,39 @@ p-vlaue를 구하기 위해서 귀무가설하에서 검정통계량의 분포�
 t-분포 : 0을 중심으로 대칭, 꼬리부분이 정규분포와 두터운 모양
 
 
+##10-3
 
 
 
 
 
 
+##10-4 가설검정의 여러 문제
 
+library(DT)
+gfriend.tabl <- matrix(c(20, 19, 33, 34, 30, 27, 22, 22, 22, 32, 23, 16), nrow=2)
+dimnames(gfriend.tabl) <- list(sex=c("male", "female" ),member=c("소원", "예린", "은하", "유주", "신비", "엄지"))
+datatable(gfrined.tabl)
 
+chisq.test(gfriend.tabl)  #카이제곱 검정을 시행
 
+급성백혈병 사례(biomarker와 다중검정)
+(나온 코드는 다시 살펴보기)
+if (!requireNamesspace("BiocManager", quietyly = TRUE))
+            install.packages("BiocManager")
 
+BoicManager::install("multtest")
 
+library(multtest)
+#2표본 t-검정을 유전자별로 실시하고 p값을 구하기
+testatat = mt.testatat(golub, golub.cl)
+rawp = 2* (1 - pnorm(abs(testat)))
+#
+adjusted = mt.rawp2adjp(rawp, c("Bonferroni", "BB"))
 
+sum(adjusted$adj[,2]<0.05)
+
+sum(adjusted$adj[,3]<0.05)
 
 
 
